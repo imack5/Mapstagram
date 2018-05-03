@@ -40,13 +40,14 @@ app.use(express.static("public"));
 app.use("/api/users", usersRoutes(knex))
 
   // Home page
-  app.get("/", (req, res) => {
-    console.log(apikey.key);
-    res.render("viewmap", {
-      apiKey: apikey.key
-    });
-  });
+app.get("/", (req, res) => {
+      res.render("viewmap", {apiKey: apikey.key})
+});
 
+app.get("/maps/data", (req, res) => {
+  knex('pins').where('id', 1).select('title', 'description', 'location_lat', 'location_long')
+    .then( rows => {res.json(rows)} )
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

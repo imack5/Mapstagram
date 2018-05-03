@@ -52,8 +52,16 @@ app.get("/", (req, res) => {
   res.render("index")
 });
 
+
 // endpoint to view a specific map
 app.get("/maps/:mapid", (req, res) => {
   res.render("viewmap", {apiKey: apikey.key,
                          mapid: req.params.mapid})
+
+app.post("/maps", (req, res) => {
+  console.log(res.body);
+});
+
+app.listen(PORT, () => {
+  console.log("Example app listening on port " + PORT);
 });

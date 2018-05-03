@@ -3,3 +3,6 @@ public/styles
 .env
 *.log
 *.sqlite3
+apikey.js
+index.ejs
+app.js

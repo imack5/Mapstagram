@@ -25,7 +25,6 @@ app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
-const apikey = require('./apikey.js')
 
 
 app.set("view engine", "ejs");
@@ -42,13 +41,13 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex))
 
-  // Home page
-  app.get("/viewmap", (req, res) => {
-    console.log(apikey.key);
-    res.render("viewmap", {
-      apiKey: apikey.key
-    });
+// Home page
+app.get("/viewmap", (req, res) => {
+  console.log(apikey.key);
+  res.render("viewmap", {
+    apiKey: apikey.key
   });
+});
 
 // Home page
 app.get("/makeMap", (req, res) => {

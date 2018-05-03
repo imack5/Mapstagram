@@ -44,7 +44,7 @@ app.use("/api/users", usersRoutes(knex));
 // Home page
 app.get("/", (req, res) => {
   console.log(apikey.key);
-  res.render("index", {
+  res.render("makeMap", {
     apiKey: apikey.key
   });
 });

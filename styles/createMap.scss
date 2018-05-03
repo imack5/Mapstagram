@@ -1,0 +1,14 @@
+.container{
+  display: flex;
+}
+
+#map {
+  flex: 70%;
+}
+
+.pins {
+  display: flex;
+  flex: 30%;
+  flex-direction: column;
+}
+

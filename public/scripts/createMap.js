@@ -25,13 +25,14 @@ function banana() {
       var data = {};
       data.lat = e.latLng.lat();
       data.lng = e.latLng.lng();
-      console.log(markerArray.length)
-      console.log(markerArray)
+
       if(markerArray.length === targetPin){
 
         markerArray.push(
                         {
-                          marker: new google.maps.Marker({
+                            id: targetPin,
+
+                            marker: new google.maps.Marker({
                             position: data,
                             map: map,
                             animation: google.maps.Animation.DROP,
@@ -40,31 +41,32 @@ function banana() {
 
                           })
                         });
-        } else {
-          markerArray[targetPin].marker.setMap(null);
-          markerArray.pop();
-          markerArray.push({marker: new google.maps.Marker({
-                                          position: data,
-                                          map: map,
-                                          animation: google.maps.Animation.DROP,
-                                          title: 'Yeee Boiiii',
-                                          draggable:true
-                                        })
-                            });
-        }
-        console.log(markerArray[targetPin].marker.getPosition().lat())
-        $('.container').append($('<div>').text(`lat: ${markerArray[targetPin].marker.getPosition().lat()}  lon: ${markerArray[targetPin].marker.getPosition().lng()}`))
-      });
+      } else {
+        markerArray[targetPin].marker.setMap(null);
+        markerArray.pop();
+        markerArray.push({
+                              id: targetPin,
+
+                          marker: new google.maps.Marker({
+                                  position: data,
+                                  map: map,
+                                  animation: google.maps.Animation.DROP,
+                                  title: 'Yeee Boiiii',
+                                  draggable:true
+                                })
+                          });
+      }
+
+      console.log(markerArray[targetPin].marker.getPosition().lat())
+
+
+    });
 
       $('#submit-pin').on('click', function(element){
+        $('.pins').append($('<div>').text(`Pin number: ${markerArray[targetPin].id} lat: ${markerArray[targetPin].marker.getPosition().lat()}  lon: ${markerArray[targetPin].marker.getPosition().lng()}`))
         targetPin ++;
         console.log(markerArray)
       });
-
-
-
-
-
 
 
       var tempMarker = markerArray[targetPin].marker
@@ -74,33 +76,11 @@ function banana() {
         var infowindow = new google.maps.InfoWindow({
           content: "hello!"
         });
+
         infowindow.open(map, tempMarker);
+
       });
-
-      console.log(markerArray);
-
-
-
-
-
-
-
-
-  var marker =      {
-                      id: 1,
-                      marker: new google.maps.Marker({
-                                map: map,
-                                position: myLatLng,
-                                title: 'Hello World!'
-                              })
-                    }
-
-  markerArray.push(marker);
-
-
-
-
-};
+  };
 placeMarker();
 
 }

@@ -1,7 +1,6 @@
 
 
 
-
 function initMap() {
   let targetPin = 0;
   let markerArray = [
@@ -17,6 +16,50 @@ function initMap() {
     center: myLatLng,
     zoom: 5
   });
+
+  function postMap(markerArr){
+    var array = [];
+    console.log('hi')
+    markerArr.forEach(function(element){
+    console.log(element.marker);
+    console.log(element.marker.getPosition().lng());
+
+    element.lat = element.marker.getPosition().lat();
+    element.lng = element.marker.getPosition().lng();
+    array.push({
+
+      title: element.title,
+      info: element.info,
+      description: element.description,
+      lat: element.lat,
+      lng: element.lng,
+      pic: element.picture_url
+
+                })
+  });
+
+
+
+
+
+
+
+
+    $.ajax({
+      type: 'post',
+      url: '/maps/',
+      data: JSON.stringify(array)
+    })
+    .then((data, status, jqXHR) => {
+      if (status !== "success") {
+        console.error("There was an error getting to the site");
+        throw "Request was not a success";
+      }
+      return data;
+    }).then(data =>{
+    });
+
+  }
 
   function placeMarker() {
 
@@ -97,21 +140,28 @@ function initMap() {
       });
 
 
-      var tempMarker = markerArray[targetPin].marker
+      // var tempMarker = markerArray[targetPin].marker
 
 
-      tempMarker.addListener('click', function(e) {
-        var infowindow = new google.maps.InfoWindow({
-          content: "hello!"
-        });
+      // tempMarker.addListener('click', function(e) {
+      //   var infowindow = new google.maps.InfoWindow({
+      //     content: "hello!"
+      //   });
 
-        infowindow.open(map, tempMarker);
+      //   infowindow.open(map, tempMarker);
 
-      });
+      // });
   };
 
 
-placeMarker();
+  placeMarker();
+
+  console.log('initializing click');
+  $('#submit-map').on('click', function(element){
+    console.log('hi')
+    postMap(markerArray);
+  })
+
 
 }
 

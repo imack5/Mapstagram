@@ -57,6 +57,12 @@ app.get("/makeMap", (req, res) => {
   });
 });
 
+app.post("/maps", (req, res) => {
+  console.log(res.body);
+});
+
+
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });

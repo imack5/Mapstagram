@@ -43,23 +43,20 @@ app.use(express.static("public"));
 app.use("/api/users", usersRoutes(knex))
 
   // Home page
-  app.get("/", (req, res) => {
+  app.get("/viewmap", (req, res) => {
     console.log(apikey.key);
     res.render("viewmap", {
       apiKey: apikey.key
     });
   });
 
-<<<<<<< HEAD
 // Home page
-app.get("/", (req, res) => {
+app.get("/makeMap", (req, res) => {
   console.log(apikey.key);
   res.render("makeMap", {
     apiKey: apikey.key
   });
 });
-=======
->>>>>>> 0a02c0dc709b63f0d0c1adac5544f4d369030818
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

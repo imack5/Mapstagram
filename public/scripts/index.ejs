@@ -30,17 +30,30 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/createMap.js"></script>
     <link rel="stylesheet" href="/styles/createMap.css">
+
     <script>
       apiKey = "<%=apiKey%>";
     </script>
 
   </head>
-  <body >
+  <body>
     <div class='container'>
       <div id="map" style='height: 500px'></div>
       <div class='pins'>
-        <div id="submit-pin" style='background: red'> CLICK MEEEEEEEEEEEE </div>
-        <div id="pin-details">Sup</div>
+
+        <div id="pin-inputs">
+          <form>
+            Title: <br>
+            <input id="title-input" type="text" name="title"><br>
+            Info: <br>
+            <input id="info-input" type="text" name="info"><br>
+            Description: <br>
+            <input id="description-input" type="text" name="description"><br>
+            Pic URL: <br>
+            <input id="pic-input" type="text" name="description"><br>
+            <button id="submit-pin" type="reset" > Confirm Pin </button>
+          </form>
+        </div>
       </div>
     </div>
   </body>

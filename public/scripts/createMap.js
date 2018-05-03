@@ -2,7 +2,7 @@
 
 
 
-function banana() {
+function initMap() {
   let targetPin = 0;
   let markerArray = [
 
@@ -37,7 +37,11 @@ function banana() {
                             map: map,
                             animation: google.maps.Animation.DROP,
                             title: 'Yeee Boiiii',
-                            draggable:true
+                            draggable:true,
+                            title: '',
+                            info: '',
+                            description: '',
+                            picture_url: ''
 
                           })
                         });
@@ -45,15 +49,21 @@ function banana() {
         markerArray[targetPin].marker.setMap(null);
         markerArray.pop();
         markerArray.push({
-                              id: targetPin,
+                            id: targetPin,
 
-                          marker: new google.maps.Marker({
-                                  position: data,
-                                  map: map,
-                                  animation: google.maps.Animation.DROP,
-                                  title: 'Yeee Boiiii',
-                                  draggable:true
-                                })
+                            marker: new google.maps.Marker({
+                                    position: data,
+                                    map: map,
+                                    animation: google.maps.Animation.DROP,
+                                    title: 'Yeee Boiiii',
+                                    draggable:true
+                                  }),
+
+                            title: '',
+                            info: '',
+                            description: '',
+                            picture_url: ''
+
                           });
       }
 
@@ -62,8 +72,26 @@ function banana() {
 
     });
 
+
+
       $('#submit-pin').on('click', function(element){
-        $('.pins').append($('<div>').text(`Pin number: ${markerArray[targetPin].id} lat: ${markerArray[targetPin].marker.getPosition().lat()}  lon: ${markerArray[targetPin].marker.getPosition().lng()}`))
+        let title = $('#title-input').val();
+        let info = $('#info-input').val();
+        let description = $('#description-input').val();
+        let pic = $('#pic-input').val();
+
+
+        markerArray[targetPin].title = title;
+        markerArray[targetPin].info = info;
+        markerArray[targetPin].description = description;
+        markerArray[targetPin].picture_url = pic;
+
+
+        $('body').append($('<div>').text(`Pin number: ${targetPin}
+                                           title: ${title}
+                                           info: ${info}
+                                           description: ${description}
+                                           pic_url: ${pic}`));
         targetPin ++;
         console.log(markerArray)
       });
@@ -81,12 +109,14 @@ function banana() {
 
       });
   };
+
+
 placeMarker();
 
 }
 
 
 $(document).ready(function(){
-  let $map = $('<script>').attr('src', `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=banana`);
+  let $map = $('<script>').attr('src', `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`);
   $('.container').append($map);
 });

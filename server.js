@@ -15,8 +15,12 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
 // Seperated Routes for each Resource
+
 const knexRoutes = require("./routes/knexqueries");
-const apikey = require('./apikey.js')
+const usersRoutes = require("./routes/users");
+const createMap = require("./routes/newMap")(knex);
+const apikey = require('./apikey.js');
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -30,7 +34,7 @@ app.use(knexLogger(knex));
 app.use("/", knexRoutes(knex))
 
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -41,6 +45,17 @@ app.use(express.static("public"));
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
+// Mount all resource routes
+app.use("/api/users", usersRoutes(knex));
+app.use("/maps", createMap);
+
+// Home page
+app.get("/viewmap", (req, res) => {
+  console.log(apikey.key);
+  res.render("viewmap", {
+    apiKey: apikey.key
+  });
+
 });
 
 // --------------------

@@ -31,32 +31,31 @@ function initMap() {
       title: element.title,
       info: element.info,
       description: element.description,
-      lat: element.lat,
-      lng: element.lng,
-      pic: element.picture_url
+      location_lat: element.lat,
+      location_long: element.lng,
+      image: element.picture_url,
+      map_id: 1
 
-                })
+    })
   });
-
-
-
-
-
-
-
-
+    console.log(array)
     $.ajax({
       type: 'post',
-      url: '/maps/',
+      url: '/maps',
+      dataType: 'application/json',
+      contentType: 'application/json',
       data: JSON.stringify(array)
     })
     .then((data, status, jqXHR) => {
       if (status !== "success") {
         console.error("There was an error getting to the site");
         throw "Request was not a success";
+      } else {
+
       }
       return data;
     }).then(data =>{
+      console.log(data)
     });
 
   }

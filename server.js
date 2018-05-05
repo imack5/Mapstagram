@@ -15,11 +15,10 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
 // Seperated Routes for each Resource
-
 const knexRoutes = require("./routes/knexqueries");
 const usersRoutes = require("./routes/users");
-const createMap = require("./routes/newMap")(knex);
 const apikey = require('./apikey.js');
+const createMap = require("./routes/newMap")(knex, apikey);
 
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT

@@ -38,22 +38,41 @@
   </head>
   <body>
     <div class='container'>
+      <input id="pac-input" class="controls" type="text" placeholder="Search Box">
       <div id="map" style='height: 500px'></div>
+      <div id="infowindow-content">
+        <span id="place-name"  class="title"></span><br>
+         <span id="place-id"></span><br>
+        <span id="place-address"></span>
+      </div>
       <div class='pins'>
-
+        <button id="toggle-pin-input" type="button" > Toggle</button>
         <div id="pin-inputs">
+          <div id="custom-pins" class="show">
           <form>
             Title: <br>
             <input id="title-input" type="text" name="title"><br>
             Info: <br>
             <input id="info-input" type="text" name="info"><br>
             Description: <br>
-            <input id="description-input" type="text" name="description"><br>
+            <textarea id="description-input" type="text" name="description"> </textarea> <br>
             Pic URL: <br>
             <input id="pic-input" type="text" name="description"><br>
-            <button id="submit-pin" type="reset" > Confirm Pin </button>
           </form>
-          <div id="submit-map"> Submit Maps </div>
+          </div>
+          <div id="auto-pins" class="hide">
+             <div id="auto-place-name">Title:  </div>
+            <div id="custom-place-info">
+              Info: <input id="custom-info-input" type="text" name="info"><br>
+            </div>
+            <div id="place-description">
+              Description: <textarea id="custom-description-input" type="text" name="description"></textarea><br>
+            </div>
+              Address: <div id="auto-place-address"> </div>
+
+          </div>
+          <button id="submit-pin" type="reset" > Confirm Pin </button>
+          <button type="button" id="submit-map" value="submit"> Submit Maps </button>
         </div>
       </div>
     </div>

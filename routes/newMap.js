@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 function insertPin(db, pinObj, mapID){
-  console.log(mapID[0])
   pinObj['map_id'] = Number(mapID[0]);
   console.log('PinObj', pinObj.map_id);
 
@@ -31,7 +30,7 @@ function insertMap(db){
 
 }
 
-module.exports = db => {
+module.exports = (db, apikey) => {
 
   router.post("/", (req, res) => {
     let inputString = req.body;
@@ -40,6 +39,12 @@ module.exports = db => {
     .then(function(result){
       inputString.forEach(element => insertPin(db, element, result));
     }).then(res.sendStatus(200));
+  });
+
+  router.get("/", (req, res) => {
+    res.render("makeMap", {
+      apiKey: apikey.key
+    });
   });
 
   return router;

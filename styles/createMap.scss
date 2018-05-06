@@ -1,3 +1,17 @@
+.pin-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.pin-info-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  background: blue;
+}
+
 .container{
   display: flex;
 }

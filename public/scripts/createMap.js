@@ -1,5 +1,15 @@
 
 function initMap() {
+  function appendMarker(marker){
+
+    let $pin = $('<div>').addClass("pin-info-container")
+    $pin.append($("<div>").addClass('title').text('title'));
+    $pin.append($("<div>").addClass('hiiii').text('hi!!!'));
+
+    $(".pin-container").append($pin)
+
+  }
+
   let currentPlace;
   let targetPin = 0;
   let markerArray = [
@@ -96,12 +106,12 @@ let newAutoPin = {
     $("#place-info").text(`A ${place.types[0]} with a rating of ${place.rating}`);
     $("#auto-place-address").text(`Title: ${place.formatted_address}`)
 
-    infowindowContent.children['place-name'].textContent = place.name;
+    //infowindowContent.children['place-name'].textContent = place.name;
     //infowindowContent.children['place-id'].textContent = place.place_id;
-    infowindowContent.children['place-address'].textContent = place.formatted_address;
+    //infowindowContent.children['place-address'].textContent = place.formatted_address;
 
 
-    infowindow.open(map, marker);
+    //infowindow.open(map, marker);
     currentPlace = place;
   });
 
@@ -170,7 +180,8 @@ let newAutoPin = {
                       picture_url: ''
                   };
 
-
+        console.log('length', markerArray.length, "targer pin", targetPin)
+        console.log(markerArray);
         if(markerArray.length === targetPin){
           markerArray.push(newPin);
         } else {
@@ -189,38 +200,46 @@ let newAutoPin = {
 
   $('#submit-pin').on('click', function(element){
 
-        if(customPin === true){
+    if(markerArray[targetPin] !== undefined){
+      console.log("we're gucci");
+      if(customPin === true){
 
-          let title = $('#title-input').val();
-          let info = $('#info-input').val();
-          let description = $('#description-input').val();
-          let pic = $('#pic-input').val();
-
-
-          markerArray[targetPin].title = title;
-          markerArray[targetPin].info = info;
-          markerArray[targetPin].description = description;
-          markerArray[targetPin].picture_url = pic;
+        let title = $('#title-input').val();
+        let info = $('#info-input').val();
+        let description = $('#description-input').val();
+        let pic = $('#pic-input').val();
 
 
-        } else {
+        markerArray[targetPin].title = title;
+        markerArray[targetPin].info = info;
+        markerArray[targetPin].description = description;
+        markerArray[targetPin].picture_url = pic;
 
-          markerArray.push({
-            title: currentPlace.name,
-            info: $('#custom-info-input').val(),
-            description: $("#custom-description-input").val(),
-            location_lat: currentPlace.geometry.location.lat(),
-            location_long: currentPlace.geometry.location.lng(),
-            image: '',
-            map_id: 1
-          });
 
-          console.log(currentPlace.geometry.location.lng(), currentPlace.geometry.location.lng());
+      } else {
 
-        }
+        let info = $('#custom-info-input').val();
+        let description = $('#custom-description-input').val();
 
-        targetPin ++;
-      });
+        markerArray[targetPin].info = info;
+        markerArray[targetPin].description = description;
+        markerArray[targetPin].id = targetPin;
+        //let pic = $('#pic-input').val();
+
+
+        //console.log(currentPlace.geometry.location.lng(), currentPlace.geometry.location.lng());
+
+      }
+      console.log('submitted pin #', targetPin);
+      appendMarker(markerArray[targetPin]);
+      targetPin ++;
+      console.log('current pin #', targetPin);
+
+
+    } else {
+      console.log("drop a pin jeeezeeee");
+    }
+  });
 
 
       // tempMarker.addListener('click', function(e) {

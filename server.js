@@ -13,6 +13,7 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const cookieSession = require('cookie-session');
 
 // Seperated Routes for each Resource
 
@@ -28,11 +29,15 @@ app.use(morgan('dev'));
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 
+// Mount all resource routes
+app.use("/maps", createMap);
+
 // endpoint for retreiving an individual maps data (map title, map user map pins etc)
 app.use("/", knexRoutes(knex))
 
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -41,30 +46,34 @@ app.use("/styles", sass({
 }));
 
 app.use(express.static("public"));
-
+app.use(cookieSession({
+  name: 'session',
+  keys: ['session']
+}));
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
 
+
 // --------------------
 // endpoints for server
 // --------------------
 
-//  endpoint for home page
+// endpoint for home page
 app.get("/", (req, res) => {
-  res.render("index")
+    res.render("index", {
+      apiKey: apikey.key
+    });
 })
 
-// Mount all resource routes
-app.use("/maps", createMap);
+app.get("/login", (req, res) => {
+    res.render("login")
+})
+
 
 // Home page
 app.get("/viewmap", (req, res) => {
-  console.log(apikey.key);
-  res.render("viewmap", {
-    apiKey: apikey.key
-  });
 
 });
 
@@ -74,3 +83,11 @@ app.get("/maps/:mapid", (req, res) => {
                          mapid: req.params.mapid
                        })
 });
+
+app.post("/", (req, res) => {
+  res.cookie('username', req.body.username)
+  console.log(req.session)
+  res.render("index", {
+    apiKey: apikey.key
+  });
+})

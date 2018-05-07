@@ -19,9 +19,8 @@ module.exports = (knex) => {
 	});
 
 	router.get("/maps/data", (req, res) => {
-		console.log("hello")
 		knex('maps')
-			.select('*')
+			.select()
 			.then( result => { res.json(result) })
 	});
 

@@ -19,6 +19,7 @@ const cookieSession = require('cookie-session');
 const knexRoutes = require("./routes/knexqueries");
 const apikey = require('./apikey.js');
 const createMap = require("./routes/newMap")(knex, apikey);
+const appendUserFeed = require("./routes/appendUserFeedRoutes")
 
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -57,13 +58,13 @@ app.listen(PORT, () => {
 
 });
 
+// Mount all resource routes
+app.use("/maps", createMap);
 
 // --------------------
 // endpoints for server
 // --------------------
 
-// Mount all resource routes
-app.use("/maps", createMap);
 
 // endpoint for home page
 app.get("/", (req, res) => {
@@ -72,9 +73,51 @@ app.get("/", (req, res) => {
     });
 })
 
+app.post("/", (req, res) => {
+  res.cookie('username', req.body.username)
+  res.render("index", {
+    apiKey: apikey.key
+  });
+})
+
 app.get("/login", (req, res) => {
     res.render("login")
 })
+
+
+
+app.get("/users/posts/:id", (req, res) => {
+  //console.log("sup")
+    knex('maps')
+      .where('user_id', req.params.id)
+      .select('*')
+      .then(result => {
+        //console.log("result", result);
+        res.json(result);
+   })
+
+});
+
+
+app.get("/users/:id", (req, res) => {
+  res.render("user_profiles", {userid: req.params.id});
+})
+
+app.get("/users/info/:id", (req, res) => {
+  console.log("sup")
+  knex('users')
+  .where('id', req.params.id)
+  .select('*')
+  .then( result => {
+       // console.log("result", result);
+        res.json(result);
+  })
+});
+
+
+
+
+//app.use("/users", appendUserFeed);
 
 // Home page
 app.get("/viewmap", (req, res) => {
@@ -91,9 +134,4 @@ app.post("/maps", (req, res) => {
 });
 
 
-app.post("/", (req, res) => {
-  res.cookie('username', req.body.username)
-  res.render("index", {
-    apiKey: apikey.key
-  });
-})
+

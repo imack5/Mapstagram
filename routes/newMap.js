@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const apikey = require("../apikey");
+
 function insertPin(db, pinObj, mapID){
   pinObj['map_id'] = Number(mapID[0]);
   console.log('PinObj', pinObj.map_id);

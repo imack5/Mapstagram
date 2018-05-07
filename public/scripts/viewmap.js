@@ -17,6 +17,7 @@ function banana() {
       // in the result of the query
       let i = 0
       let markerLocations = [];
+      var bounds = new google.maps.LatLngBounds();
       for (row of data) {
         var pinLatLng = {lat: Number(row.location_lat), lng: Number(row.location_long)};
         markerLocations.push(pinLatLng)
@@ -58,9 +59,12 @@ function banana() {
                 map.setZoom(7)
                 map.panTo(markerpos);
               })
-
+              bounds.extend(markerLocations[i]);
           i++;
       }
+
+      map.fitBounds(bounds);
+
   })
 }
 

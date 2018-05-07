@@ -21,6 +21,8 @@
 
 #map {
   flex: 50%;
+  height: 600px;
+  width: auto;
 }
 
 .pins {
@@ -86,7 +88,19 @@
     align-items: center;
 }
 
+.sidebar-title {
 
+  text-align: center;
+}
+
+#pin-warning {
+  color: red;
+}
+
+#auto-place-address {
+
+  text-overflow: ellipsis
+}
 
 
 

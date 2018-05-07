@@ -45,7 +45,7 @@
 
     <div class='container'>
       <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-      <div id="map" style='height: 500px'></div>
+      <div id="map" ></div>
       <div id="infowindow-content">
         <span id="place-name"  class="title"></span><br>
          <span id="place-id"></span><br>
@@ -53,7 +53,7 @@
       </div>
 
       <div id="pins-confirmation-area" class=".flex-column .d-flex">
-        <div class='pins'>
+        <div class='pins flex-grow-1'>
           <ul class="nav nav-tabs" role="tablist">
             <li id="custom-button" class="nav-item">
               <a class="nav-link active" href="#custom-pins" role="tab" data-toggle="tab">CUSTOM</a>
@@ -62,6 +62,7 @@
               <a class="nav-link" href="#auto-pins" role="tab" data-toggle="tab">AUTO</a>
             </li>
           </ul>
+          <div id="pin-warning" class="hide"> PLACE A PIN </div>
 
           <div id="pin-inputs" class="tab-content">
 
@@ -73,8 +74,6 @@
                 <input id="info-input" class="form-control" type="text" name="info"><br>
                 Description: <br>
                 <textarea id="description-input" class="form-control" type="text" name="description"> </textarea> <br>
-                Pic URL: <br>
-                <input id="pic-input" class="form-control" type="text" name="description"><br>
               </form>
             </div>
 
@@ -142,14 +141,13 @@
           <!-- Modal body -->
           <div class="modal-body">
             Please enter map details
-            Title <input id="map-info-input" class="form-control" type="text" name="info"><br>
+            Title <input id="map-title-input" class="form-control" type="text" name="info"><br>
             Description <textarea id="map-description-input" class="form-control" type="text" name="description"></textarea>
-
           </div>
 
           <!-- Modal footer -->
           <div class="modal-footer d-flex justify-content-between">
-            <button id="submit-map-confirm" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+            <button id="create-map-confirm" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
 
           </div>
 

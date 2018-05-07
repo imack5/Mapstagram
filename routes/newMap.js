@@ -14,10 +14,11 @@ function insertPin(db, pinObj, mapID){
   });
 }
 
-function insertMap(db){
+function insertMap(db, inputString){
   return new Promise(function(resolve, reject){
+    let mapObj = inputString[0];
     db('maps')
-    .insert({title: "map", description: "cool map", user_id: 1})
+    .insert({title: mapObj.title, description: mapObj.description, user_id: 1})
     .returning("id")
     .then(function(result){
       resolve(result);
@@ -35,9 +36,13 @@ module.exports = (db, apikey) => {
   router.post("/", (req, res) => {
     let inputString = req.body;
 
-    insertMap(db)
+    insertMap(db, req.body)
     .then(function(result){
-      inputString.forEach(element => insertPin(db, element, result));
+      inputString.forEach((element, index) => {
+        if(index > 0){
+          insertPin(db, element, result);
+        }
+      })
     }).then(res.sendStatus(200));
   });
 

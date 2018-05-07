@@ -5,12 +5,12 @@ $.ajax(`/maps/data`)
       // console.log(row)
 
       var map = `<section class="map-tiles-index">
-        <a href="/maps">
+        <a href="/maps/${row.id}">
         <div class="well well-lg">
           <div class="img-cont">
             <img src="/images/mapicon.png" class="img-rounded">
           </div>
-          <a href="/users/:userid"><span id="username"><p></p></span></a>
+          <a href="/users/${row.user_id}"><span id="username"><p> @username </p></span></a>
           <div class="desc-cont">
             <h3>${row.title}</h3>
             <p>${row.description}</p>

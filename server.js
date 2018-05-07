@@ -76,13 +76,10 @@ app.get("/login", (req, res) => {
     res.render("login")
 })
 
-
 // Home page
 app.get("/viewmap", (req, res) => {
 
 });
-
-
 
 // endpoint to view a specific map
 app.get("/maps/:mapid", (req, res) => {
@@ -96,7 +93,6 @@ app.post("/maps", (req, res) => {
 
 app.post("/", (req, res) => {
   res.cookie('username', req.body.username)
-  console.log(req.session)
   res.render("index", {
     apiKey: apikey.key
   });

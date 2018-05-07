@@ -51,4 +51,3 @@ module.exports = (db, apikey) => {
 
   return router;
 };
-

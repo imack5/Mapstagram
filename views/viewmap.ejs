@@ -1,20 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
   <head>
-    <!-- This stylesheet contains specific styles for displaying
-         the map on this page. Replace it with your own styles as
-         described in the documentation:
-         https://developers.google.com/maps/documentation/javascript/tutorial
-    -->
-    <!-- <link rel="stylesheet" href="../public/styles/layout.css"> -->
+    <%- include ../views/partials/_bootstrap.ejs %>
+    <% include partials/_header.ejs %>
+    <link type="text/css" rel="stylesheet" href="/styles/viewmap.css"/>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/viewmap.js"></script>
+    <!-- Navbar CSS -->
+    <link rel="stylesheet" href="/styles/nav.css">
+    <link rel="stylesheet" href="/styles/layout.css">
     <script>
       apiKey = "<%=apiKey%>";
+      mapid = "<%=mapid%>";
     </script>
   </head>
-  <body class='container'>
-    <div id="map" style='height: 500px'></div>
+
+  <body>
+    <%- include ../views/partials/_navbar.ejs %>
+
+    <div class='map-container'>
+      <div id="map" style='height: 25em'></div>
+    </div>
+
+    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+      <div class="card-body">
+        <h4 class="card-title">Dark card title</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+      <div class="card-footer bg-transparent border-success">@userid</div>
+    </div>
+
+    <div class='list-container'>
+      <ul class="list-group">
+      </ul>
+    <div>
+
+      <!-- MAP TILES -->
+
+      <div class="row">
+        <div class="col-12 col-md-4"></div>
+        <div class="col-8 col-md-4">
+          <section class="map-tiles-index">
+            <a href="/maps">
+            <div class="well well-lg">
+              <div class="img-cont">
+                <img src="/images/mapicon.png" class="img-rounded">
+              </div>
+              <a href="/users/:userid"><span id="username"><p>@username</p></span></a>
+              <div class="desc-cont">
+                <h3>Favourite Food</h3>
+                <p>Lorem ipsum dolor sit amet, saepe nostrum eu vis, vis ea erat errem noluisse. Vix ex viris alienum aliquando, duo ne erat primis minimum.</p>
+              </div>
+              <div class="interest">
+                <p>#Food</p>
+              </div>
+              <div class="footer">
+                <span id="icon"><i class="fas fa-heart" data-id="#"> 10 Likes</i></span>
+              </div>
+            </div>
+          </a>
+          </section>
+        </div>
+    </div>
 
   </body>
+
 </html>

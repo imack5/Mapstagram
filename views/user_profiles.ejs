@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include partials/_header.ejs %>
+</head>
+<body>
+  <!-- NAVBAR -->
+    <% include partials/_navbar.ejs %>
+  <!-- RIGHT COLUMN -->
+  <div class="row">
+    <div class="col-2 col-md-4" id="user-panel">
+    <h1>Jane Doe</h1><img src="/images/user.png">
+    <h3>About me</h3>
+    <p>Description</p>
+  </div>
+    <div class="col-4 col-md-4">
+      <h2>Jane Doe's Activities</h2>
+      <ul class="nav nav-pills nav-justified">
+        <li class="active">
+          <a data-toggle="pill" href="#created-maps">Created Maps</a>
+        </li>
+        <li>
+          <a data-toggle="pill" href="#favourite-maps">Favourites</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="created-maps">
+          <section id="map-tiles">
+            <div class="well well-lg">
+              <div class="img-cont">
+               <img src="/images/mapicon.png" class="img-rounded">
+              </div>
+              <div class="desc-cont">
+                <h3>Title</h3>
+                <p>Description</p>
+              </div>
+            </div>
+          </section>
+          <section id="map-tiles">
+            <div class="well well-lg">
+              <div class="img-cont">
+               <img src="/images/mapicon.png" class="img-rounded">
+              </div>
+              <div class="desc-cont">
+                <h3>Title</h3>
+                <p>Description</p>
+              </div>
+            </div>
+          </section>
+          <section id="map-tiles">
+            <div class="well well-lg">
+              <div class="img-cont">
+               <img src="/images/mapicon.png" class="img-rounded">
+              </div>
+              <div class="desc-cont">
+                <h3>Title</h3>
+                <p>Description</p>
+              </div>
+            </div>
+          </section>
+          <section id="map-tiles">
+            <div class="well well-lg">
+              <div class="img-cont">
+               <img src="/images/mapicon.png" class="img-rounded">
+              </div>
+              <div class="desc-cont">
+                <h3>Title</h3>
+                <p>Description</p>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="tab-pane fade" id="favourite-maps">
+          <section id="map-tiles">
+            <div class="well well-lg">
+              <div class="img-cont">
+               <img src="/images/mapicon.png" class="img-rounded">
+              </div>
+              <div class="desc-cont">
+                <h3>Title</h3>
+                <p>Description</p>
+              </div>
+            </div>
+          </section>
+          <section id="map-tiles">
+            <div class="well well-lg">
+              <div class="img-cont">
+               <img src="/images/mapicon.png" class="img-rounded">
+              </div>
+              <div class="desc-cont">
+                <h3>Title</h3>
+                <p>Description</p>
+              </div>
+            </div>
+          </section>
+          <section id="map-tiles">
+            <div class="well well-lg">
+              <div class="img-cont">
+               <img src="/images/mapicon.png" class="img-rounded">
+              </div>
+              <div class="desc-cont">
+                <h3>Title</h3>
+                <p>Description</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

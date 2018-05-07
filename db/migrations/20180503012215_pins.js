@@ -4,9 +4,10 @@ exports.up = function(knex, Promise) {
    table.string('title');
    table.string('info');
    table.string('description');
-   table.string('location');
+   table.decimal("location_long");
+   table.decimal("location_lat");
    table.string('image');
-   table.string('map_id');
+   table.integer('map_id');
  })
 };
 

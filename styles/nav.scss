@@ -1,0 +1,30 @@
+// #navbar {
+//   float: right;
+//   padding-right: 30px;
+// }
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+// #button-link a:link {
+// 	color: white;
+// }
+
+// a:hover {
+// 	text-decoration:none;
+// }
+
+button.btn.btn-danger.navbar-btn {
+    right: -3em;
+    bottom: 3em;
+    position: relative;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    right: 7em;
+    top: .1em;
+}

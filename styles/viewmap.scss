@@ -1,0 +1,79 @@
+.bg-dark {
+    background-color: rgba(black, 0.7)!important;
+}
+
+.card {
+  position: absolute;
+  top: 11em;
+  left: 17em;
+  border-radius: 20px;
+  text-align: justify;
+
+  .card-title {
+    line-height: 1.2;
+  }
+
+  h4.card-title {
+    font-weight: bold;
+  }
+
+  p.card-text {
+    font-size: 10px;
+  }
+}
+
+.card-footer.bg-transparent.border-success {
+    display: inline-block;
+    font-size: 10px;
+}
+
+.list-group {
+  border-radius: 5px;
+  overflow-y: scroll;
+  width: 16em;
+  height: 17.3em;
+  position: absolute;
+  top: 11em;
+  left: .5em;
+  background-color: rgba(white, 0.8);
+
+  li {
+    background-color: rgba(white, 0.9);
+    transition: background-color .5s;
+    line-height: 1.4;
+
+    .list-marker-item {
+      max-width: 1.5em;
+      max-height: 100%;
+      margin-right: .5em;
+      position: relative;
+      top: -3px;
+    }
+
+    a {
+      color: black;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.border-success {
+     border-color: black!important;
+}
+
+// note* this featuer only works in chrome and safari
+.list-group::-webkit-scrollbar {
+    display: none;
+}
+
+.list-group > li:hover {
+  background-color: lightblue;
+  transition: background-color .5s ease-out;
+}
+
+.map-container {
+    margin-bottom: 1em;
+}

@@ -1,3 +1,7 @@
+
+
+
+
 function banana() {
   // making a get request to an endpoint that triggers a query to db for marker info
   $.ajax(`/maps/data/${mapid}`)
@@ -64,6 +68,47 @@ function banana() {
 
       map.fitBounds(bounds);
 
+
+
+      $.ajax(`/maps/data`)
+        .then( (data) => {
+          for (row of data) {
+            // console.log(row)
+
+            var map = `<section class="map-tiles-index">
+              <a href="/maps/${row.id}">
+              <div class="well well-lg">
+                <div class="img-cont">
+                  <img src="/images/mapicon.png" class="img-rounded">
+                </div>
+                <a href=""><span id="username"><p></p></span></a>
+                <div class="desc-cont">
+                  <h3>${row.title}</h3>
+                  <p>${row.description}</p>
+                </div>
+                <div class="interest">
+                </div>
+                <div class="footer">
+                  <span id="icon"><i class="fas fa-heart" data-id="#">Like</i></span>
+                </div>
+              </div>
+            </a>
+            </section>`
+
+            $('#feed').html(map)
+          }
+
+          var card = `<div class="card-body">
+                  <h4 class="card-title">${row.title}</h4>
+                  <p class="card-text">${row.description}</p>
+                </div>
+                <div class="card-footer bg-transparent border-success">@userid</div>
+                `
+        $("#cardbox").html(card)
+
+
+
+        })
   })
 }
 

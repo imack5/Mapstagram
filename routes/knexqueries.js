@@ -24,5 +24,13 @@ module.exports = (knex) => {
 			.then( result => { res.json(result) })
 	});
 
+	router.get("/maps/:userid/data", (req, res) => {
+		knex('maps')
+			.select()
+			.where('user_id', req.params.userid)
+			.then( result => { res.json(result) })
+	});
+
+
   return router;
 }

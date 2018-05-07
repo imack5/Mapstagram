@@ -1,0 +1,6 @@
+- implement date column in the tables that need it (verify that it automatically
+  creates a date)
+- change location_lat and location_long columns (pins table) to decimal type (i
+  -n stead of "integer")
+- figure out how to move endpoints for queries to a seperate file
+- implement connection between front end and database

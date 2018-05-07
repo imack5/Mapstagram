@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
    table.string('title');
    table.string('description');
    table.string('created_at');
-   table.string('user_id');
+   table.integer('user_id');
   })
 };
 

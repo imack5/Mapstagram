@@ -15,7 +15,8 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
 // Seperated Routes for each Resource
-const usersRoutes = require("./routes/users");
+const knexRoutes = require("./routes/knexqueries");
+const apikey = require('./apikey.js')
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -24,7 +25,9 @@ app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
-const apikey = require('./apikey.js')
+
+// endpoint for retreiving an individual maps data (map title, map user map pins etc)
+app.use("/", knexRoutes(knex))
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,19 +39,21 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
-// Mount all resource routes
-app.use("/api/users", usersRoutes(knex))
-
-  // Home page
-app.get("/", (req, res) => {
-      res.render("viewmap", {apiKey: apikey.key})
-});
-
-app.get("/maps/data", (req, res) => {
-  knex('pins').where('id', 1).select('title', 'description', 'location_lat', 'location_long')
-    .then( rows => {res.json(rows)} )
-});
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
+});
+
+// --------------------
+// endpoints for server
+// --------------------
+
+//  endpoint for home page
+app.get("/", (req, res) => {
+  res.render("index")
+});
+
+// endpoint to view a specific map
+app.get("/maps/:mapid", (req, res) => {
+  res.render("viewmap", {apiKey: apikey.key,
+                         mapid: req.params.mapid})
 });

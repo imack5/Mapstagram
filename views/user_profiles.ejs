@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
   <% include partials/_header.ejs %>
+  <link rel="stylesheet" href="/styles/viewUsers.css">
+
+  <script>
+      userid = "<%=userid%>";
+  </script>
+
 </head>
 <body>
   <!-- NAVBAR -->
@@ -9,12 +15,11 @@
   <!-- RIGHT COLUMN -->
   <div class="row">
     <div class="col-2 col-md-4" id="user-panel">
-    <h1>Jane Doe</h1><img src="/images/user.png">
-    <h3>About me</h3>
-    <p>Description</p>
+    <h1 id="user-name">Jane Doe</h1><img id="user-pic" src="/images/user.png">
+    <h3 id="user-bio">About me</h3>
   </div>
     <div class="col-4 col-md-4">
-      <h2>Jane Doe's Activities</h2>
+      <h2 id="user-activities">Activities</h2>
       <ul class="nav nav-pills nav-justified">
         <li class="active">
           <a data-toggle="pill" href="#created-maps">Created Maps</a>
@@ -25,51 +30,7 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane fade in active" id="created-maps">
-          <section id="map-tiles">
-            <div class="well well-lg">
-              <div class="img-cont">
-               <img src="/images/mapicon.png" class="img-rounded">
-              </div>
-              <div class="desc-cont">
-                <h3>Title</h3>
-                <p>Description</p>
-              </div>
-            </div>
-          </section>
-          <section id="map-tiles">
-            <div class="well well-lg">
-              <div class="img-cont">
-               <img src="/images/mapicon.png" class="img-rounded">
-              </div>
-              <div class="desc-cont">
-                <h3>Title</h3>
-                <p>Description</p>
-              </div>
-            </div>
-          </section>
-          <section id="map-tiles">
-            <div class="well well-lg">
-              <div class="img-cont">
-               <img src="/images/mapicon.png" class="img-rounded">
-              </div>
-              <div class="desc-cont">
-                <h3>Title</h3>
-                <p>Description</p>
-              </div>
-            </div>
-          </section>
-          <section id="map-tiles">
-            <div class="well well-lg">
-              <div class="img-cont">
-               <img src="/images/mapicon.png" class="img-rounded">
-              </div>
-              <div class="desc-cont">
-                <h3>Title</h3>
-                <p>Description</p>
-              </div>
-            </div>
-          </section>
-        </div>
+          </div>
         <div class="tab-pane fade" id="favourite-maps">
           <section id="map-tiles">
             <div class="well well-lg">
@@ -108,5 +69,6 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript" src="/scripts/appendUserFeed.js"></script>
 </body>
 </html>

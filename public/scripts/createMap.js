@@ -1,5 +1,6 @@
 
 function initMap() {
+
   $('#myCreatePageModal').modal('show');
 
   function deletePin(pin){
@@ -75,6 +76,8 @@ function initMap() {
   let markerArray = [
 
                   ];
+
+  let mapObject = {};
 
   let customPin = true;
 
@@ -178,6 +181,7 @@ let newAutoPin = {
 
   function postMap(markerArr){
     var array = [];
+    array.push(mapObject);
 
     markerArr.forEach(function(element){
 
@@ -261,6 +265,7 @@ let newAutoPin = {
 
     if(markerArray[targetPin] !== undefined){
       console.log("we're gucci");
+      $("#pin-warning").attr("style", "display: none")
 
       //custom pin
       if(customPin === true){
@@ -284,7 +289,7 @@ let newAutoPin = {
         let title = $('#auto-place-name').text();
 
 
-        console.log("imptttt", markerArray)
+        console.log("imptttt", markerArray);
 
 
         markerArray[targetPin].title = title;
@@ -307,7 +312,7 @@ let newAutoPin = {
 
 
     } else {
-      console.log("drop a pin jeeezeeee");
+     $("#pin-warning").attr("style", "display: block")
     }
   });
 
@@ -371,6 +376,17 @@ let newAutoPin = {
     event.stopPropagation();
     console.log("edit")
     editPin($(this));
+
+  })
+
+  $("#create-map-confirm").on('click', function(element){
+    mapObject = {
+      title: $("#map-title-input").val(),
+      description: $("#map-description-input").val()
+   }
+    $(".pins").prepend($("<h4>").addClass('sidebar-title').text(mapObject.title));
+    console.log(mapObject);
+
 
   })
 

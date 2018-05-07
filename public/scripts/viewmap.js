@@ -3,7 +3,6 @@ function banana() {
   $.ajax(`/maps/data/${mapid}`)
     // result sent back from query is "data"
     .then( (data) => {
-      console.log(data)
       // map location will always be set to Toronto for demo
       var mapLocation = {lat: -25.363, lng: 131.044};
       var map = new google.maps.Map(document.getElementById('map'), {

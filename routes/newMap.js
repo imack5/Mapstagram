@@ -27,12 +27,9 @@ function insertMap(db, inputString){
         console.error(error);
     });
   });
-
-
 }
 
 module.exports = (db, apikey) => {
-
   router.post("/", (req, res) => {
     let inputString = req.body;
 

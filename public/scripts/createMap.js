@@ -227,6 +227,7 @@ let newAutoPin = {
         console.error("There was an error getting to the site");
         throw "Request was not a success";
       }
+      window.location.href = "/";
       console.log("data time", data)
 
       })

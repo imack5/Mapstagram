@@ -1,4 +1,4 @@
-
+$(document).ready(function(){
 $.ajax(`/maps/data`)
   .then( (data) => {
     for (row of data) {
@@ -31,3 +31,4 @@ $.ajax(`/maps/data`)
 
 
   })
+});

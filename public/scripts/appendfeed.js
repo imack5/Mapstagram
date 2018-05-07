@@ -24,7 +24,7 @@ $.ajax(`/maps/data`)
       </a>
       </section>`
 
-      $('#feed').html(map)
+      $('#feed').append($("<div>").html(map))
 
 
     }

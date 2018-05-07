@@ -16,7 +16,6 @@ const knexLogger  = require('knex-logger');
 
 // Seperated Routes for each Resource
 const knexRoutes = require("./routes/knexqueries");
-const usersRoutes = require("./routes/users");
 const apikey = require('./apikey.js');
 const createMap = require("./routes/newMap")(knex, apikey);
 
@@ -44,8 +43,14 @@ app.use(express.static("public"));
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
+
+});
+
+// --------------------
+// endpoints for server
+// --------------------
+
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
 app.use("/maps", createMap);
 
 // Home page
@@ -56,10 +61,6 @@ app.get("/viewmap", (req, res) => {
   });
 
 });
-
-// --------------------
-// endpoints for server
-// --------------------
 
 //  endpoint for home page
 app.get("/", (req, res) => {

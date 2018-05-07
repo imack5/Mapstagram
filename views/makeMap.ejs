@@ -26,15 +26,23 @@
          https://developers.google.com/maps/documentation/javascript/tutorial
     -->
     <!-- <link rel="stylesheet" href="../public/styles/layout.css"> -->
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="/scripts/createMap.js"></script>
+
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
     <link rel="stylesheet" href="/styles/createMap.css">
 
     <script>
       apiKey = "<%=apiKey%>";
     </script>
+
   </head>
   <body class='layout'>
+    <div id="navbar"> NAVBAR </div>
+
     <div class='container'>
       <input id="pac-input" class="controls" type="text" placeholder="Search Box">
       <div id="map" style='height: 500px'></div>
@@ -43,38 +51,124 @@
          <span id="place-id"></span><br>
         <span id="place-address"></span>
       </div>
-      <div class='pins'>
-        <button id="toggle-pin-input" type="button" > Toggle</button>
-        <div id="pin-inputs">
-          <div id="custom-pins" class="show">
-          <form>
-            Title: <br>
-            <input id="title-input" type="text" name="title"><br>
-            Info: <br>
-            <input id="info-input" type="text" name="info"><br>
-            Description: <br>
-            <textarea id="description-input" type="text" name="description"> </textarea> <br>
-            Pic URL: <br>
-            <input id="pic-input" type="text" name="description"><br>
-          </form>
+
+      <div id="pins-confirmation-area" class=".flex-column .d-flex">
+        <div class='pins'>
+          <ul class="nav nav-tabs" role="tablist">
+            <li id="custom-button" class="nav-item">
+              <a class="nav-link active" href="#custom-pins" role="tab" data-toggle="tab">CUSTOM</a>
+            </li>
+            <li id="auto-button" class="nav-item">
+              <a class="nav-link" href="#auto-pins" role="tab" data-toggle="tab">AUTO</a>
+            </li>
+          </ul>
+
+          <div id="pin-inputs" class="tab-content">
+
+            <div id="custom-pins" role="tabpanel" class="tab-pane fade in active show">
+              <form>
+                Title: <br>
+                <input id="title-input" class="form-control" type="text" name="title"><br>
+                Info: <br>
+                <input id="info-input" class="form-control" type="text" name="info"><br>
+                Description: <br>
+                <textarea id="description-input" class="form-control" type="text" name="description"> </textarea> <br>
+                Pic URL: <br>
+                <input id="pic-input" class="form-control" type="text" name="description"><br>
+              </form>
+            </div>
+
+            <div id="auto-pins" role="tabpanel" class="tab-pane fade">
+               <div id="auto-place-name">Title: None Selected </div>
+              <div id="custom-place-info">
+                Info: <input id="custom-info-input" class="form-control" type="text" name="info"><br>
+              </div>
+              <div id="place-description">
+                Description: <textarea id="custom-description-input" class="form-control" type="text" name="description"></textarea><br>
+              </div>
+                Address: <div id="auto-place-address"> </div>
+            </div>
+
+            <button id="submit-pin" type="reset" class="btn btn-success show" > Confirm Pin </button>
+            <button id="submit-pin-edit" type="button" class="btn btn-warning hide">Confirm Edit</button>
           </div>
-          <div id="auto-pins" class="hide">
-             <div id="auto-place-name">Title:  </div>
-            <div id="custom-place-info">
-              Info: <input id="custom-info-input" type="text" name="info"><br>
-            </div>
-            <div id="place-description">
-              Description: <textarea id="custom-description-input" type="text" name="description"></textarea><br>
-            </div>
-              Address: <div id="auto-place-address"> </div>
+
+        </div>
+          <div id="submit-map-container" class="d-flex justify-content-center">
+             <button type="button" id="submit-map" class="btn btn-danger" value="submit" data-toggle="modal" data-target="#myModal"> Submit Maps </button>
+          </div>
+      </div>
+
+     </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Submit Map</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            Are you sure you want to submit your map?
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button id="submit-map-confirm" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
 
           </div>
-          <button id="submit-pin" type="reset" > Confirm Pin </button>
-          <button type="button" id="submit-map" value="submit"> Submit Maps </button>
+
         </div>
       </div>
     </div>
+
+
+    <div class="modal" id="myCreatePageModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Create Map</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            Please enter map details
+            Title <input id="map-info-input" class="form-control" type="text" name="info"><br>
+            Description <textarea id="map-description-input" class="form-control" type="text" name="description"></textarea>
+
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer d-flex justify-content-between">
+            <button id="submit-map-confirm" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
     <div class='pin-container'>
-    <div>
+    </div>
+
+        <!--   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+
   </body>
 </html>

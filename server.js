@@ -31,7 +31,7 @@ app.use(morgan('dev'));
 app.use(knexLogger(knex));
 
 // Mount all resource routes
-app.use("/maps", createMap);
+
 
 // endpoint for retreiving an individual maps data (map title, map user map pins etc)
 app.use("/", knexRoutes(knex))
@@ -47,6 +47,8 @@ app.use("/styles", sass({
 }));
 
 app.use(express.static("public"));
+
+
 app.use(cookieSession({
   name: 'session',
   keys: ['session']
@@ -72,7 +74,7 @@ app.get("/login", (req, res) => {
     res.render("login")
 })
 
-
+app.use("/maps", createMap);
 
 app.get("/users/posts/:id", (req, res) => {
   //console.log("sup")
@@ -106,7 +108,6 @@ app.get("/users/info/:id", (req, res) => {
 
 
 // Mount all resource routes
-app.use("/maps", createMap);
 //app.use("/users", appendUserFeed);
 
 

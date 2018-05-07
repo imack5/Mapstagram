@@ -215,7 +215,22 @@ let newAutoPin = {
         console.error("There was an error getting to the site");
         throw "Request was not a success";
       }
-    })
+      console.log("data time", data)
+
+      })
+
+    $.ajax({
+      type: 'get',
+      url: `/`
+    }).then((data, status, jqXHR) => {
+      if (status !== "success") {
+        console.error("There was an error getting to the site");
+        throw "Request was not a success";
+      }
+      console.log("data time", data)
+
+      })
+
   }
 
   function placeMarker() {

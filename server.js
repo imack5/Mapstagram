@@ -19,6 +19,7 @@ const knexLogger  = require('knex-logger');
 const knexRoutes = require("./routes/knexqueries");
 const apikey = require('./apikey.js');
 const createMap = require("./routes/newMap")(knex, apikey);
+const appendUserFeed = require("./routes/appendUserFeedRoutes")
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -53,11 +54,46 @@ app.listen(PORT, () => {
 
 //  endpoint for home page
 app.get("/", (req, res) => {
-  res.render("index")
+  res.render("index");
+});
+
+
+app.get("/users/posts/:id", (req, res) => {
+  //console.log("sup")
+    knex('maps')
+      .where('user_id', req.params.id)
+      .select('*')
+      .then(result => {
+        //console.log("result", result);
+        res.json(result);
+   })
+
+});
+
+
+app.get("/users/:id", (req, res) => {
+  res.render("user_profiles", {userid: req.params.id});
 })
+
+app.get("/users/info/:id", (req, res) => {
+  console.log("sup")
+  knex('users')
+  .where('id', req.params.id)
+  .select('*')
+  .then( result => {
+       // console.log("result", result);
+        res.json(result);
+  })
+});
+
+
+
 
 // Mount all resource routes
 app.use("/maps", createMap);
+//app.use("/users", appendUserFeed);
+
+
 
 // Home page
 app.get("/viewmap", (req, res) => {

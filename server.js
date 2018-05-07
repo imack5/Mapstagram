@@ -66,7 +66,7 @@ app.listen(PORT, () => {
 // endpoint for home page
 app.get("/", (req, res) => {
     res.render("index", {
-      apiKey: apikey.key
+      apiKey: apikey.key,
     });
 })
 

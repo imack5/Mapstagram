@@ -1,13 +1,73 @@
 
 function initMap() {
+  $('#myCreatePageModal').modal('show');
+
+  function deletePin(pin){
+
+    let pinNumber = pin.parent().siblings(`.pin-number`).text() - 1;
+    console.log(markerArray)
+    markerArray.splice(pinNumber, 1);
+    console.log(markerArray)
+    targetPin--;
+    appendMarkerSet();
+    console.log(pinNumber);
+
+  }
+
+  function editPin(pin){
+     let pinNumber = pin.parent().siblings(`.pin-number`).text() - 1;
+
+     $("#title-input").val(markerArray[pinNumber].title);
+     $("#info-input").val(markerArray[pinNumber].info);
+     $("#description-input").val(markerArray[pinNumber].description);
+
+     if($("#submit-pin").hasClass("show")){
+      $("#submit-pin").toggleClass('hide show');
+       $("#submit-pin-edit").toggleClass('hide show');
+     }
+
+     $("#submit-pin-edit").on('click', function(e){
+
+       markerArray[pinNumber].title = $("#title-input").val();
+       markerArray[pinNumber].info = $("#info-input").val();
+       markerArray[pinNumber].description = $("#description-input").val();
+       $("#submit-pin").toggleClass('hide show');
+       $("#submit-pin-edit").toggleClass('hide show');
+
+       appendMarkerSet();
+
+     })
+
+     console.log(pinNumber);
+  }
+
   function appendMarker(marker){
 
-    let $pin = $('<div>').addClass("pin-info-container")
-    $pin.append($("<div>").addClass('title').text('title'));
-    $pin.append($("<div>").addClass('hiiii').text('hi!!!'));
+    let $pin = $('<div>').addClass("pin-info-container d-flex justify-content-between list-group-item-action list-group-item")
+    $pin.append($("<div>").addClass('pin-number').text(marker.id + 1));
+    $pin.append($("<div>").addClass('title').text(`Location Title: ${marker.title}`));
+    $pin.append($("<div>").addClass('info').text(`Info: ${marker.info}`));
 
-    $(".pin-container").append($pin)
 
+    $deleteButton = $("<div>").attr("id", "delete-pin").addClass("btn btn-danger").attr("type", "button").text("Delete");
+    $editButton = $("<div>").attr("id", "edit-pin").addClass("btn btn-warning").attr("type", "button").text("Edit");
+    $buttons = $("<div>").addClass("button-holder")
+      .append($deleteButton)
+      .append($editButton);
+
+    $pin.append($buttons);
+
+    $(".pin-container").append($pin);
+  }
+
+  function appendMarkerSet(){
+    //console.log(markerArray)
+    $(".pin-container").empty();
+    markerArray.forEach((element, index) => {
+      element.id = index;
+      console.log(element.id)
+      appendMarker(element);
+    })
   }
 
   let currentPlace;
@@ -43,19 +103,7 @@ function initMap() {
 
 
 let newAutoPin = {
-                id: targetPin,
-
-                marker: new google.maps.Marker({
-                              map: map,
-                              animation: google.maps.Animation.DROP,
-                              draggable:false
-                        }),
-
-                title: '',
-                info: '',
-                description: '',
-                picture_url: ''
-            };
+                };
 
 
 
@@ -66,11 +114,14 @@ let newAutoPin = {
 
   autocomplete.addListener('place_changed', function() {
     infowindow.close();
+
     newAutoPin.marker = new google.maps.Marker({
                               map: map,
                               animation: google.maps.Animation.DROP,
                               draggable:false
                         });
+
+    newAutoPin.id = targetPin;
 
     var place = autocomplete.getPlace();
     if (!place.geometry) {
@@ -89,16 +140,24 @@ let newAutoPin = {
       placeId: place.place_id,
       location: place.geometry.location
     });
+
     newAutoPin.marker.setVisible(true);
 
     if(customPin === false){
+      let temp = {
+        marker: markerArray.marker
+      }
+
+      console.log(markerArray)
+
       if(markerArray.length === targetPin){
-        markerArray.push(newAutoPin);
+        markerArray.push(temp);
       } else {
         markerArray[targetPin].marker.setMap(null);
         markerArray.pop();
-        markerArray.push(newAutoPin);
+        markerArray.push(temp);
       }
+      console.log(markerArray)
     }
 
     $("#auto-place-name").text(`${place.name}`)
@@ -202,6 +261,8 @@ let newAutoPin = {
 
     if(markerArray[targetPin] !== undefined){
       console.log("we're gucci");
+
+      //custom pin
       if(customPin === true){
 
         let title = $('#title-input').val();
@@ -215,12 +276,18 @@ let newAutoPin = {
         markerArray[targetPin].description = description;
         markerArray[targetPin].picture_url = pic;
 
-
+        //auto pin
       } else {
 
         let info = $('#custom-info-input').val();
         let description = $('#custom-description-input').val();
+        let title = $('#auto-place-name').text();
 
+
+        console.log("imptttt", markerArray)
+
+
+        markerArray[targetPin].title = title;
         markerArray[targetPin].info = info;
         markerArray[targetPin].description = description;
         markerArray[targetPin].id = targetPin;
@@ -231,9 +298,12 @@ let newAutoPin = {
 
       }
       console.log('submitted pin #', targetPin);
-      appendMarker(markerArray[targetPin]);
+
+      appendMarkerSet();
+
       targetPin ++;
       console.log('current pin #', targetPin);
+
 
 
     } else {
@@ -252,15 +322,68 @@ let newAutoPin = {
       // });
 
 
-      $('#toggle-pin-input').on('click', function(element){
-        customPin = !customPin;
-        $('#custom-pins').toggleClass('hide show');
-        $('#auto-pins').toggleClass('hide show');
-        $('#pac-input').toggleClass('hide show');
+
+      $('.pin-container').on('click', '.pin-info-container', function(event){
+        //event.stopPropagation();
+        let pinNumber = $(this).children('.pin-number').text();
+
+        let selectedPin = markerArray[pinNumber - 1].marker;
+
+        //console.log(pinNumber, selectedPin);
+        map.panTo(selectedPin.getPosition())
+        map.setZoom(17);
+
+      });
+
+      $('#auto-button').on('click', function(element){
+
+
+        if(customPin === true){
+          $('#auto-button').toggleClass('faded notfaded');
+          $('#custom-button').toggleClass('faded notfaded');
+          $('#custom-pins').toggleClass('hide show');
+          $('#auto-pins').toggleClass('hide show');
+          $('#pac-input').toggleClass('hide show');
+
+        }
+        $("#pac-input").focus();
+        customPin = false;
       })
 
-  $('#submit-map').on('click', function(element){
+      $('#custom-button').on('click', function(element){
+
+        if(customPin === false){
+          $('#custom-button').toggleClass('faded notfaded');
+          $('#auto-button').toggleClass('faded notfaded');
+          $('#custom-pins').toggleClass('hide show');
+          $('#auto-pins').toggleClass('hide show');
+          $('#pac-input').toggleClass('hide show');
+        }
+        customPin = true;
+      })
+
+  //Modal load to create map
+
+
+
+
+  $(".pin-container").on('click', '#edit-pin', function(event){
+    event.stopPropagation();
+    console.log("edit")
+    editPin($(this));
+
+  })
+
+  $(".pin-container").on('click', '#delete-pin', function(event){
+    event.stopPropagation();
+    console.log("delete")
+    deletePin($(this));
+
+  })
+
+  $('#submit-map-confirm').on('click', function(element){
     postMap(markerArray);
+    console.log('hey')
   });
 }
 

@@ -6,10 +6,13 @@
 .pin-info-container {
   display: flex;
   flex-direction: row;
+  background: white;
+  border: solid;
+
 }
 
 .title {
-  background: blue;
+
 }
 
 .container{
@@ -22,8 +25,12 @@
 
 .pins {
   display: flex;
-  flex: 50%;
+  flex: 30%;
   flex-direction: column;
+  border: solid;
+  padding: 10px;
+  border-radius: 5px;
+  border-width: 1px;
 }
 
 .hide {
@@ -33,3 +40,54 @@
 .show {
   display: block;
 }
+
+#navbar {
+  height: 75px;
+  background: yellow;
+}
+
+.layout {
+  margin:0px;
+
+}
+
+.faded {
+  opacity: 0.5;
+
+}
+
+.notfaded{
+  opacity: 1;
+}
+
+.pin-number{
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  border: 2px solid #666;
+  color: #666;
+  text-align: center;
+  font: 32px Arial, sans-serif;
+}
+
+#submit-map-container{
+
+}
+
+  #submit-map {
+    width: 100%
+
+  }
+
+#pac-input {
+    width: 60%;
+    text-align: center;
+    height: 5%;
+    align-items: center;
+}
+
+
+
+
+
+

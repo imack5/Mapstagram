@@ -13,16 +13,31 @@ function banana() {
         center: mapLocation,
         zoom: 5
       });
+
+      console.log("data", data)
+      var card = `<div class="card-body">
+                  <h4 class="card-title">${data[0].m_title}</h4>
+                  <p class="card-text">${data[0].m_description}</p>
+                </div>
+                <div class="card-footer bg-transparent border-success">@userid</div>
+                `
+
+        $("#cardbox").empty()
+        $("#cardbox").append($("<div>").html(card))
+
+
       // this section dynamically creates a marker based on the amount of markers
       // within the response of the query request on line 4
 
       // a loop that declares markers and info windows based on amount of rows
       // in the result of the query
-      let i = 0
+      let i = 0;
       let markerLocations = [];
       var bounds = new google.maps.LatLngBounds();
+      console.log(data)
       for (row of data) {
         var pinLatLng = {lat: Number(row.location_lat), lng: Number(row.location_long)};
+        console.log(pinLatLng)
         markerLocations.push(pinLatLng)
         // a closure function that creates markers and assigns an event listener to each
         function createMarker() {
@@ -33,7 +48,7 @@ function banana() {
             })
           // declaring the info window
           var infowindow = new google.maps.InfoWindow({
-            content: row.title,
+            content: `${row.titleu}: ${row.description}`,
             position: pinLatLng,
             })
             // event listener that displays info window on click
@@ -59,7 +74,7 @@ function banana() {
 
               let markerpos = markerLocations[i]
               $(`#item${i}`).on('click', () => {
-                map.setZoom(7)
+                map.setZoom(17);
                 map.panTo(markerpos);
               })
               bounds.extend(markerLocations[i]);
@@ -89,22 +104,16 @@ function banana() {
                 <div class="interest">
                 </div>
                 <div class="footer">
-                  <span id="icon"><i class="fas fa-heart" data-id="#">Like</i></span>
+                  <span id="icon"><i onclick="myFunction(this)" class="far fa-thumbs-up"></i></span>
                 </div>
               </div>
             </a>
             </section>`
 
-            $('#feed').html(map)
+            $('#feed').append($("<div>").html(map))
           }
 
-          var card = `<div class="card-body">
-                  <h4 class="card-title">${row.title}</h4>
-                  <p class="card-text">${row.description}</p>
-                </div>
-                <div class="card-footer bg-transparent border-success">@userid</div>
-                `
-        $("#cardbox").html(card)
+
 
 
 

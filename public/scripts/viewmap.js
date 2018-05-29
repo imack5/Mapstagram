@@ -30,8 +30,8 @@ function banana() {
       // in the result of the query
       let i = 0;
       let markerLocations = [];
-
       var bounds = new google.maps.LatLngBounds();
+
       for (row of data) {
         var pinLatLng = {lat: Number(row.location_lat), lng: Number(row.location_long)};
         console.log(pinLatLng)
@@ -74,12 +74,13 @@ function banana() {
                 map.setZoom(17);
                 map.panTo(markerpos);
               })
-
+              bounds.extend(markerLocations[i]);
           i++;
       }
 
-
       map.fitBounds(bounds);
+
+
 
       $.ajax(`/maps/data`)
         .then( (data) => {
@@ -110,10 +111,18 @@ function banana() {
           }
 
 
+
+
+        })
+  })
+}
+
+
 $(document).ready(function(){
   let $map = $('<script>').attr('src', `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=banana`);
   $('.map-container').append($map);
 });
+
 
 // function banana() {
 //   // making a get request to an endpoint that triggers a query to db for marker info
@@ -189,4 +198,5 @@ $(document).ready(function(){
 //   let $map = $('<script>').attr('src', `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=banana`);
 //   $('.map-container').append($map);
 // });
+
 

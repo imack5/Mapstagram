@@ -45,7 +45,9 @@ app.use("/styles", sass({
   debug: true,
   outputStyle: 'expanded'
 }));
+
 app.use(express.static("public"));
+
 
 app.use(cookieSession({
   name: 'session',
@@ -130,4 +132,84 @@ app.post("/maps", (req, res) => {
 });
 
 
+
+
+app.listen(PORT, () => {
+  console.log("Example app listening on port " + PORT);
+});
+
+
+// --------------------
+// endpoints for server
+// --------------------
+
+// endpoint for home page
+app.get("/", (req, res) => {
+    res.render("index", {
+      apiKey: apikey.key,
+    });
+})
+
+app.get("/login", (req, res) => {
+    res.render("login")
+})
+
+app.use("/maps", createMap);
+
+app.get("/users/posts/:id", (req, res) => {
+  //console.log("sup")
+    knex('maps')
+      .where('user_id', req.params.id)
+      .select('*')
+      .then(result => {
+        //console.log("result", result);
+        res.json(result);
+   })
+
+});
+
+
+app.get("/users/:id", (req, res) => {
+  res.render("user_profiles", {userid: req.params.id});
+})
+
+app.get("/users/info/:id", (req, res) => {
+  console.log("sup")
+  knex('users')
+  .where('id', req.params.id)
+  .select('*')
+  .then( result => {
+       // console.log("result", result);
+        res.json(result);
+  })
+});
+
+
+
+
+// Mount all resource routes
+//app.use("/users", appendUserFeed);
+
+
+
+// Home page
+app.get("/viewmap", (req, res) => {
+  res.render("viewmap", {
+    apiKey: apikey.key
+  });
+});
+
+// endpoint to view a specific map
+app.get("/maps/:mapid", (req, res) => {
+  res.render("viewmap", {apiKey: apikey.key,
+                         mapid: req.params.mapid
+                       })
+});
+
+app.post("/", (req, res) => {
+  res.cookie('username', req.body.username)
+  res.render("index", {
+    apiKey: apikey.key
+  });
+})
 

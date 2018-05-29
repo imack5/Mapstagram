@@ -23,7 +23,7 @@ function insertMap(db, inputString){
     console.log(inputString)
     let mapObj = inputString[0];
     db('maps')
-    .insert({title: mapObj.title, description: mapObj.description, user_id: 1})
+    .insert({title: mapObj.title, description: mapObj.description, user_id: 6})
     .returning("id")
     .then(function(result){
       console.log(result)

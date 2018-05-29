@@ -3,6 +3,7 @@
 <head>
   <% include partials/_header.ejs %>
   <link rel="stylesheet" href="/styles/viewUsers.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <script>
       userid = "<%=userid%>";
@@ -38,8 +39,8 @@
                <img src="/images/mapicon.png" class="img-rounded">
               </div>
               <div class="desc-cont">
-                <h3>Title</h3>
-                <p>Description</p>
+                <h3>Super Fun Map</h3>
+                <p>My goodness I had fun with this one</p>
               </div>
             </div>
           </section>
@@ -49,8 +50,8 @@
                <img src="/images/mapicon.png" class="img-rounded">
               </div>
               <div class="desc-cont">
-                <h3>Title</h3>
-                <p>Description</p>
+                <h3>All My Friends :)</h3>
+                <p>There are so many, I swear.</p>
               </div>
             </div>
           </section>
@@ -60,8 +61,8 @@
                <img src="/images/mapicon.png" class="img-rounded">
               </div>
               <div class="desc-cont">
-                <h3>Title</h3>
-                <p>Description</p>
+                <h3>Worst Bars to go to on the 3rd Tuesday of February between 3-4pm </h3>
+                <p>SERIOUSLY NEVER GO THERE</p>
               </div>
             </div>
           </section>
@@ -70,5 +71,10 @@
     </div>
   </div>
   <script type="text/javascript" src="/scripts/appendUserFeed.js"></script>
+   <script>
+        function myFunction(x) {
+        x.classList.toggle("fa-thumbs-down");
+      }
+      </script>
 </body>
 </html>

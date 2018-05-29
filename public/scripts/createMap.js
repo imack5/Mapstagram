@@ -105,8 +105,9 @@ function initMap() {
   infowindow.setContent(infowindowContent);
 
 
-let newAutoPin = {
-                };
+  let newAutoPin = {
+
+                  };
 
 
 
@@ -160,7 +161,7 @@ let newAutoPin = {
         markerArray.pop();
         markerArray.push(temp);
       }
-      console.log(markerArray)
+      console.log("marker Array", markerArray)
     }
 
     $("#auto-place-name").text(`${place.name}`)
@@ -183,8 +184,9 @@ let newAutoPin = {
     var array = [];
     array.push(mapObject);
 
-    markerArr.forEach(function(element){
 
+    markerArr.forEach(function(element){
+      console.log("elecmts", element.marker)
       if(element.marker){
         element.lat = element.marker.getPosition().lat();
         element.lng = element.marker.getPosition().lng();
@@ -418,6 +420,9 @@ let newAutoPin = {
     console.log('hey')
   });
 }
+
+
+
 
 $(document).ready(function(){
   let $map = $('<script>').attr('src', `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initMap`);

@@ -18,7 +18,7 @@ $.ajax(`/maps/data`)
           <div class="interest">
           </div>
           <div class="footer">
-            <span id="icon"><i class="fas fa-heart" data-id="#">Like</i></span>
+            <span id="icon"><i onclick="myFunction(this)" class="far fa-thumbs-up"></i></span>
           </div>
         </div>
       </a>
@@ -29,6 +29,8 @@ $.ajax(`/maps/data`)
 
     }
 
-
   })
 });
+
+
+
